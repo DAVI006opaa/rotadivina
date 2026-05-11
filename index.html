@@ -4,234 +4,174 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RotaViva — Inteligência Operacional para Mobilidade Urbana</title>
-  <meta name="description" content="RotaViva é a plataforma de inteligência preditiva que antecipa impactos climáticos na operação de frota urbana com 30 minutos de antecedência. Para operadoras SPPO, seguradoras e gestores de mobilidade." />
-  <meta property="og:title" content="RotaViva — Inteligência Operacional para Mobilidade Urbana" />
-  <meta property="og:description" content="A única plataforma que cruza 10 anos de GPS de frota com pluviometria real — e entrega decisão antes do evento climático." />
+  <meta name="description" content="RotaViva é a plataforma de inteligência preditiva que antecipa impactos climáticos na operação de frota urbana com 30 minutos de antecedência." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #080C0A;
-      --bg2: #0D1410;
-      --surface: #101710;
-      --surface2: #141E16;
-      --border: #1C2A1E;
-      --border-mid: #243228;
-      --text: #EDF2EE;
-      --text-muted: #7A9080;
-      --text-dim: #3D5242;
-      --green: #00C87A;
-      --green-dim: rgba(0,200,122,0.08);
-      --green-glow: rgba(0,200,122,0.18);
-      --green-soft: #00A865;
-      --purple: #7B6FE8;
-      --purple-dim: rgba(123,111,232,0.1);
-      --red: #E05252;
-      --gold: #C8A84B;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg:#080C0A;--bg2:#0D1410;--surface:#101710;--surface2:#141E16;
+      --border:#1C2A1E;--border-mid:#243228;--text:#EDF2EE;--text-muted:#7A9080;
+      --text-dim:#3D5242;--green:#00C87A;--green-dim:rgba(0,200,122,0.08);
+      --green-glow:rgba(0,200,122,0.18);--green-soft:#00A865;--purple:#7B6FE8;
+      --purple-dim:rgba(123,111,232,0.1);--red:#E05252;--gold:#C8A84B;
+      --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px; height: 64px;
-      background: rgba(8,12,10,0.94); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; animation: pulse 2.5s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 var(--green-glow)} 50%{opacity:.7;box-shadow:0 0 0 8px rgba(0,200,122,0)} }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { color: var(--text-muted); font-size: 13px; font-weight: 500; text-decoration: none; letter-spacing: 0.02em; transition: color .2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.nav-discrete { color: var(--text-dim); font-size: 12px; }
-    .nav-links a.nav-discrete:hover { color: var(--text-muted); }
-    .nav-cta { display: flex; align-items: center; gap: 12px; }
-    .btn-nav { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: #041008; font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 6px; text-decoration: none; transition: all .15s; letter-spacing: 0.01em; }
-    .btn-nav:hover { background: #00e589; transform: translateY(-1px); }
-    .lang-toggle { display: flex; border: 1px solid var(--border-mid); border-radius: 5px; overflow: hidden; margin-left: 8px; }
-    .lang-toggle button { background: transparent; border: none; color: var(--text-dim); padding: 5px 11px; cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; font-family: var(--font); transition: all .15s; }
-    .lang-toggle button.active { background: var(--border-mid); color: var(--text); }
-
-    /* ── LAYOUT ── */
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
-    .wrap-wide { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
-    section { padding: 96px 0; }
-
-    /* ── LABELS ── */
-    .eyebrow { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-    .eyebrow::before { content: '//'; color: var(--text-dim); }
-    .eyebrow.green { color: var(--green-soft); }
-    .eyebrow.green::before { color: var(--green-soft); }
-
-    /* ── HERO ── */
-    .hero { padding-top: 160px; padding-bottom: 80px; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid var(--border-mid); border-radius: 20px; font-size: 11px; color: var(--text-muted); margin-bottom: 40px; }
-    .hero-badge .live { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-    h1 { font-size: clamp(36px, 5.5vw, 66px); font-weight: 700; line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 28px; max-width: 820px; }
-    h1 em { font-style: normal; color: var(--green); }
-    .hero-sub { font-size: 19px; color: var(--text-muted); max-width: 560px; line-height: 1.7; margin-bottom: 52px; font-weight: 300; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: #041008; font-size: 14px; font-weight: 700; padding: 14px 28px; border-radius: 8px; text-decoration: none; transition: all .2s; }
-    .btn-primary:hover { background: #00e589; transform: translateY(-1.5px); box-shadow: 0 8px 30px rgba(0,200,122,0.2); }
-    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text-muted); font-size: 14px; padding: 14px 24px; border-radius: 8px; text-decoration: none; border: 1px solid var(--border-mid); transition: all .2s; }
-    .btn-ghost:hover { border-color: var(--text-muted); color: var(--text); }
-
-    /* ── STAT GRID ── */
-    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 72px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .stat-item { padding: 28px 24px; border-right: 1px solid var(--border); }
-    .stat-item:last-child { border-right: none; }
-    .stat-num { font-size: 38px; font-weight: 700; letter-spacing: -0.03em; color: var(--green); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-    /* ── SECTION TITLE ── */
-    h2 { font-size: clamp(26px, 3.8vw, 44px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 18px; }
-    h2 em { font-style: normal; color: var(--green); }
-    h2.pv em { color: var(--purple); }
-    .section-lead { font-size: 17px; color: var(--text-muted); max-width: 580px; line-height: 1.7; margin-bottom: 56px; font-weight: 300; }
-
-    /* ── DIVIDER ── */
-    .divider { border: none; border-top: 1px solid var(--border); }
-
-    /* ── TWO-COL PROBLEM ── */
-    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .problem-col { background: var(--surface); padding: 36px 32px; }
-    .problem-col h3 { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px; }
-    .problem-col ul { list-style: none; }
-    .problem-col li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); display: flex; gap: 12px; line-height: 1.55; }
-    .problem-col li:last-child { border-bottom: none; }
-    .ico { flex-shrink: 0; margin-top: 2px; }
-    .ico.red { color: #E05252; }
-    .ico.green { color: var(--green); }
-
-    /* ── FEATURE CARDS ── */
-    .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .feat-card { background: var(--surface); padding: 32px 28px; }
-    .feat-tag { display: inline-block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--green-soft); border: 1px solid rgba(0,200,122,0.2); padding: 3px 10px; border-radius: 4px; margin-bottom: 18px; }
-    .feat-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-    .feat-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
-
-    /* ── AUDIENCE ── */
-    .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .audience-card { background: var(--surface); padding: 32px 28px; }
-    .audience-card .tag { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; display: block; }
-    .audience-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
-    .audience-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 18px; }
-    .audience-card ul { list-style: none; font-size: 13px; color: var(--text-muted); }
-    .audience-card li { padding: 5px 0; display: flex; gap: 8px; }
-    .audience-card li::before { content: '→'; color: var(--green); flex-shrink: 0; }
-
-    /* ── PROOF ── */
-    .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .proof-card { background: var(--surface); padding: 28px 24px; }
-    .proof-quote { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 18px; font-style: italic; }
-    .proof-by { display: flex; align-items: center; gap: 10px; }
-    .proof-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--border-mid); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
-    .proof-name { font-size: 13px; font-weight: 600; }
-    .proof-role { font-size: 11px; color: var(--text-dim); }
-    .inst-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
-    .inst-pill { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1px solid var(--border-mid); border-radius: 7px; font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .inst-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-
-    /* ── POWERVIZION ── */
-    .pv-block { background: linear-gradient(135deg, rgba(123,111,232,.06) 0%, rgba(123,111,232,.02) 100%); border: 1px solid rgba(123,111,232,.18); border-radius: 16px; padding: 56px 48px; margin-top: 80px; }
-    .pv-tag { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--purple); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-    .pv-tag::before { content: '//'; }
-    .pv-block h2 { color: var(--text); }
-    .pv-block h2 em { color: var(--purple); }
-    .pv-block p { color: var(--text-muted); font-size: 16px; max-width: 560px; margin-bottom: 32px; font-weight: 300; line-height: 1.7; }
-    .pv-clients { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-    .pv-client { font-size: 12px; color: var(--text-muted); padding: 5px 14px; border: 1px solid var(--border-mid); border-radius: 5px; }
-    .btn-pv { display: inline-flex; align-items: center; gap: 6px; background: var(--purple); color: #fff; font-size: 13px; font-weight: 700; padding: 12px 24px; border-radius: 7px; text-decoration: none; transition: all .2s; }
-    .btn-pv:hover { background: #9085f0; transform: translateY(-1px); }
-
-    /* ── PRICING PAGE (hidden, menu-accessible) ── */
-    .pricing-section { background: var(--bg2); padding: 96px 0; display: none; }
-    .pricing-section.visible { display: block; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .pricing-card { background: var(--surface); padding: 36px 30px; position: relative; }
-    .pricing-card.featured { background: var(--surface2); border: 1px solid rgba(0,200,122,.25); border-radius: 0; }
-    .pricing-rec { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--green); color: #041008; padding: 3px 10px; border-radius: 3px; margin-bottom: 20px; }
-    .pricing-tier-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
-    .pricing-price { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 4px; }
-    .pricing-price small { font-size: 14px; font-weight: 400; color: var(--text-muted); }
-    .pricing-sf { font-size: 12px; color: var(--green-soft); margin-bottom: 24px; font-weight: 500; }
-    .pricing-who { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6; border-left: 2px solid var(--border-mid); padding-left: 12px; }
-    .pricing-feats { list-style: none; font-size: 13px; color: var(--text-muted); }
-    .pricing-feats li { padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; }
-    .pricing-feats li:last-child { border-bottom: none; }
-    .pricing-feats li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
-    .pricing-cta-note { margin-top: 28px; font-size: 12px; color: var(--text-dim); line-height: 1.5; padding: 12px; background: var(--green-dim); border-radius: 6px; }
-
-    /* ── INVESTOR ── */
-    .investor-strip { border: 1px solid rgba(123,111,232,.25); border-radius: 12px; padding: 40px 44px; background: var(--purple-dim); display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
-    .inv-text h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-    .inv-text p { font-size: 14px; color: var(--text-muted); max-width: 480px; }
-    .inv-metrics { display: flex; gap: 32px; flex-wrap: wrap; }
-    .inv-metric { text-align: center; }
-    .inv-num { font-size: 28px; font-weight: 700; letter-spacing: -0.025em; color: var(--purple); display: block; }
-    .inv-label { font-size: 11px; color: var(--text-dim); }
-
-    /* ── FORM SECTION ── */
-    .form-section { background: var(--bg2); }
-    .form-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
-    .form-info h2 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .form-info p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; font-weight: 300; }
-    .form-bullets { list-style: none; font-size: 14px; color: var(--text-muted); }
-    .form-bullets li { padding: 8px 0; display: flex; gap: 10px; border-bottom: 1px solid var(--border); }
-    .form-bullets li:last-child { border-bottom: none; }
-    .form-bullets li::before { content: '→'; color: var(--green); flex-shrink: 0; }
-    .contact-form { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 40px 36px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-field { margin-bottom: 18px; }
-    .form-field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
-    .form-field input, .form-field select, .form-field textarea {
-      width: 100%; background: var(--bg2); border: 1px solid var(--border-mid); border-radius: 7px;
-      color: var(--text); font-family: var(--font); font-size: 14px; padding: 12px 14px;
-      outline: none; transition: border-color .2s; appearance: none;
-    }
-    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--green); }
-    .form-field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-    .form-field select option { background: #1a1a1a; }
-    .form-submit { width: 100%; background: var(--green); color: #041008; font-family: var(--font); font-size: 15px; font-weight: 700; padding: 16px; border-radius: 8px; border: none; cursor: pointer; transition: all .2s; letter-spacing: 0.01em; }
-    .form-submit:hover { background: #00e589; transform: translateY(-1px); }
-    .form-note { font-size: 11px; color: var(--text-dim); margin-top: 14px; line-height: 1.5; text-align: center; }
-    .form-success { display: none; text-align: center; padding: 48px 24px; }
-    .form-success h3 { font-size: 22px; font-weight: 700; color: var(--green); margin-bottom: 12px; }
-    .form-success p { font-size: 15px; color: var(--text-muted); }
-
-    /* ── FOOTER ── */
-    footer { border-top: 1px solid var(--border); padding: 40px 0; }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .footer-brand { font-size: 13px; color: var(--text-dim); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; }
-    .footer-links a:hover { color: var(--text-muted); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .wrap, .wrap-wide { padding: 0 24px; }
-      section { padding: 64px 0; }
-      .stat-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-      .problem-grid, .audience-grid, .proof-grid, .pricing-grid, .feat-grid { grid-template-columns: 1fr; }
-      .form-wrap { grid-template-columns: 1fr; gap: 40px; }
-      .form-row { grid-template-columns: 1fr; }
-      .pv-block { padding: 32px 24px; }
-      .investor-strip { flex-direction: column; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(8,12,10,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .nav-logo{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-0.02em;text-decoration:none;display:flex;align-items:center;gap:8px}
+    .nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 var(--green-glow)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(0,200,122,0)}}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{color:var(--text-muted);font-size:13px;font-weight:500;text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-links a.nav-discrete{color:var(--text-dim);font-size:12px}
+    .nav-links a.nav-discrete:hover{color:var(--text-muted)}
+    .nav-cta{display:flex;align-items:center;gap:12px}
+    .btn-nav{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#041008;font-size:13px;font-weight:700;padding:9px 20px;border-radius:6px;text-decoration:none;transition:all .15s}
+    .btn-nav:hover{background:#00e589;transform:translateY(-1px)}
+    .lang-toggle{display:flex;border:1px solid var(--border-mid);border-radius:5px;overflow:hidden;margin-left:8px}
+    .lang-toggle button{background:transparent;border:none;color:var(--text-dim);padding:5px 11px;cursor:pointer;font-size:11px;font-weight:600;font-family:var(--font);transition:all .15s}
+    .lang-toggle button.active{background:var(--border-mid);color:var(--text)}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 48px}
+    section{padding:96px 0}
+    .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+    .eyebrow::before{content:'//';color:var(--text-dim)}
+    .eyebrow.green{color:var(--green-soft)}
+    .eyebrow.green::before{color:var(--green-soft)}
+    .hero{padding-top:160px;padding-bottom:80px;min-height:90vh;display:flex;flex-direction:column;justify-content:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border-mid);border-radius:20px;font-size:11px;color:var(--text-muted);margin-bottom:40px}
+    .hero-badge .live{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+    h1{font-size:clamp(36px,5.5vw,66px);font-weight:700;line-height:1.08;letter-spacing:-0.035em;margin-bottom:28px;max-width:820px}
+    h1 em{font-style:normal;color:var(--green)}
+    .hero-sub{font-size:19px;color:var(--text-muted);max-width:560px;line-height:1.7;margin-bottom:52px;font-weight:300}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#041008;font-size:14px;font-weight:700;padding:14px 28px;border-radius:8px;text-decoration:none;transition:all .2s}
+    .btn-primary:hover{background:#00e589;transform:translateY(-1.5px);box-shadow:0 8px 30px rgba(0,200,122,0.2)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text-muted);font-size:14px;padding:14px 24px;border-radius:8px;text-decoration:none;border:1px solid var(--border-mid);transition:all .2s}
+    .btn-ghost:hover{border-color:var(--text-muted);color:var(--text)}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .stat-item{padding:28px 24px;border-right:1px solid var(--border)}
+    .stat-item:last-child{border-right:none}
+    .stat-num{font-size:38px;font-weight:700;letter-spacing:-0.03em;color:var(--green);line-height:1;margin-bottom:8px}
+    .stat-label{font-size:12px;color:var(--text-muted);line-height:1.5}
+    h2{font-size:clamp(26px,3.8vw,44px);font-weight:700;letter-spacing:-0.025em;line-height:1.15;margin-bottom:18px}
+    h2 em{font-style:normal;color:var(--green)}
+    h2.pv em{color:var(--purple)}
+    .section-lead{font-size:17px;color:var(--text-muted);max-width:580px;line-height:1.7;margin-bottom:56px;font-weight:300}
+    .divider{border:none;border-top:1px solid var(--border)}
+    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .problem-col{background:var(--surface);padding:36px 32px}
+    .problem-col h3{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:24px}
+    .problem-col ul{list-style:none}
+    .problem-col li{padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text-muted);display:flex;gap:12px;line-height:1.55}
+    .problem-col li:last-child{border-bottom:none}
+    .ico{flex-shrink:0;margin-top:2px}
+    .ico.red{color:#E05252}
+    .ico.green{color:var(--green)}
+    .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .feat-card{background:var(--surface);padding:32px 28px}
+    .feat-tag{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-soft);border:1px solid rgba(0,200,122,0.2);padding:3px 10px;border-radius:4px;margin-bottom:18px}
+    .feat-card h4{font-size:16px;font-weight:600;margin-bottom:10px}
+    .feat-card p{font-size:14px;color:var(--text-muted);line-height:1.65}
+    .audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .audience-card{background:var(--surface);padding:32px 28px}
+    .audience-card .tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px;display:block}
+    .audience-card h4{font-size:16px;font-weight:600;margin-bottom:10px}
+    .audience-card p{font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:18px}
+    .audience-card ul{list-style:none;font-size:13px;color:var(--text-muted)}
+    .audience-card li{padding:5px 0;display:flex;gap:8px}
+    .audience-card li::before{content:'→';color:var(--green);flex-shrink:0}
+    .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .proof-card{background:var(--surface);padding:28px 24px}
+    .proof-quote{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:18px;font-style:italic}
+    .proof-by{display:flex;align-items:center;gap:10px}
+    .proof-avatar{width:32px;height:32px;border-radius:50%;background:var(--border-mid);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-muted);flex-shrink:0}
+    .proof-name{font-size:13px;font-weight:600}
+    .proof-role{font-size:11px;color:var(--text-dim)}
+    .inst-strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+    .inst-pill{display:flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--border-mid);border-radius:7px;font-size:12px;color:var(--text-muted);font-weight:500}
+    .inst-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+    .pv-block{background:linear-gradient(135deg,rgba(123,111,232,.06) 0%,rgba(123,111,232,.02) 100%);border:1px solid rgba(123,111,232,.18);border-radius:16px;padding:56px 48px;margin-top:80px}
+    .pv-tag{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .pv-tag::before{content:'//'}
+    .pv-block h2{color:var(--text)}
+    .pv-block h2 em{color:var(--purple)}
+    .pv-block p{color:var(--text-muted);font-size:16px;max-width:560px;margin-bottom:32px;font-weight:300;line-height:1.7}
+    .pv-clients{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .pv-client{font-size:12px;color:var(--text-muted);padding:5px 14px;border:1px solid var(--border-mid);border-radius:5px}
+    .btn-pv{display:inline-flex;align-items:center;gap:6px;background:var(--purple);color:#fff;font-size:13px;font-weight:700;padding:12px 24px;border-radius:7px;text-decoration:none;transition:all .2s}
+    .btn-pv:hover{background:#9085f0;transform:translateY(-1px)}
+    .pricing-section{background:var(--bg2);padding:96px 0;display:none}
+    .pricing-section.visible{display:block}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .pricing-card{background:var(--surface);padding:36px 30px;position:relative}
+    .pricing-card.featured{background:var(--surface2);border:1px solid rgba(0,200,122,.25);border-radius:0}
+    .pricing-rec{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--green);color:#041008;padding:3px 10px;border-radius:3px;margin-bottom:20px}
+    .pricing-tier-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px}
+    .pricing-price{font-size:48px;font-weight:700;letter-spacing:-0.04em;line-height:1;margin-bottom:4px}
+    .pricing-price small{font-size:14px;font-weight:400;color:var(--text-muted)}
+    .pricing-sf{font-size:12px;color:var(--green-soft);margin-bottom:24px;font-weight:500}
+    .pricing-who{font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;border-left:2px solid var(--border-mid);padding-left:12px}
+    .pricing-feats{list-style:none;font-size:13px;color:var(--text-muted)}
+    .pricing-feats li{padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px}
+    .pricing-feats li:last-child{border-bottom:none}
+    .pricing-feats li::before{content:'✓';color:var(--green);flex-shrink:0}
+    .pricing-cta-note{margin-top:28px;font-size:12px;color:var(--text-dim);line-height:1.5;padding:12px;background:var(--green-dim);border-radius:6px}
+    .investor-strip{border:1px solid rgba(123,111,232,.25);border-radius:12px;padding:40px 44px;background:var(--purple-dim);display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+    .inv-text h3{font-size:22px;font-weight:700;margin-bottom:8px}
+    .inv-text p{font-size:14px;color:var(--text-muted);max-width:480px}
+    .inv-metrics{display:flex;gap:32px;flex-wrap:wrap}
+    .inv-metric{text-align:center}
+    .inv-num{font-size:28px;font-weight:700;letter-spacing:-0.025em;color:var(--purple);display:block}
+    .inv-label{font-size:11px;color:var(--text-dim)}
+    .form-section{background:var(--bg2)}
+    .form-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+    .form-info h2{font-size:32px;font-weight:700;letter-spacing:-0.02em;margin-bottom:16px}
+    .form-info p{font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:28px;font-weight:300}
+    .form-bullets{list-style:none;font-size:14px;color:var(--text-muted)}
+    .form-bullets li{padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border)}
+    .form-bullets li:last-child{border-bottom:none}
+    .form-bullets li::before{content:'→';color:var(--green);flex-shrink:0}
+    .contact-form{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:40px 36px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .form-field{margin-bottom:18px}
+    .form-field label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px}
+    .form-field input,.form-field select,.form-field textarea{width:100%;background:var(--bg2);border:1px solid var(--border-mid);border-radius:7px;color:var(--text);font-family:var(--font);font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+    .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--green)}
+    .form-field textarea{resize:vertical;min-height:100px;line-height:1.6}
+    .form-field select option{background:#1a1a1a}
+    .form-submit{width:100%;background:var(--green);color:#041008;font-family:var(--font);font-size:15px;font-weight:700;padding:16px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;letter-spacing:0.01em}
+    .form-submit:hover{background:#00e589;transform:translateY(-1px)}
+    .form-note{font-size:11px;color:var(--text-dim);margin-top:14px;line-height:1.5;text-align:center}
+    .form-success{display:none;text-align:center;padding:48px 24px}
+    .form-success h3{font-size:22px;font-weight:700;color:var(--green);margin-bottom:12px}
+    .form-success p{font-size:15px;color:var(--text-muted)}
+    footer{border-top:1px solid var(--border);padding:40px 0}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+    .footer-brand{font-size:13px;color:var(--text-dim)}
+    .footer-links{display:flex;gap:24px}
+    .footer-links a{font-size:12px;color:var(--text-dim);text-decoration:none}
+    .footer-links a:hover{color:var(--text-muted)}
+    @media(max-width:900px){
+      nav{padding:0 24px}
+      .nav-links{display:none}
+      .wrap{padding:0 24px}
+      section{padding:64px 0}
+      .stat-grid{grid-template-columns:repeat(2,1fr)}
+      .stat-item:nth-child(2){border-right:none}
+      .problem-grid,.audience-grid,.proof-grid,.pricing-grid,.feat-grid{grid-template-columns:1fr}
+      .form-wrap{grid-template-columns:1fr;gap:40px}
+      .form-row{grid-template-columns:1fr}
+      .pv-block{padding:32px 24px}
+      .investor-strip{flex-direction:column}
+      .footer-inner{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ────────────────────────────────────────────────────────── -->
 <nav>
   <a href="#" class="nav-logo"><span class="dot"></span> RotaViva</a>
   <div class="nav-links">
@@ -251,7 +191,6 @@
   </div>
 </nav>
 
-<!-- ── HERO ───────────────────────────────────────────────────────── -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-badge"><span class="live"></span><span data-i18n="hero.badge">Operações ativas · Rio de Janeiro · 2026</span></div>
@@ -264,13 +203,12 @@
     <div class="stat-grid">
       <div class="stat-item"><div class="stat-num">868×</div><div class="stat-label" data-i18n="stat.1">Aumento de risco de bloqueio com chuva acima de 30mm/h</div></div>
       <div class="stat-item"><div class="stat-num">30 min</div><div class="stat-label" data-i18n="stat.2">Antecedência operacional — tempo real de decisão antes do evento</div></div>
-      <div class="stat-item"><div class="stat-num">10 anos</div><div class="stat-label" data-i18n="stat.3">De histórico de GPS e pluviometria processados. Data moat impossível de replicar.</div></div>
+      <div class="stat-item"><div class="stat-num">10 anos</div><div class="stat-label" data-i18n="stat.3">De histórico de GPS e pluviometria. Data moat impossível de replicar.</div></div>
       <div class="stat-item"><div class="stat-num">R$ 121M</div><div class="stat-label" data-i18n="stat.4">Passivo anual estimado em multas SMTR para operadoras SPPO do Rio</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── PROBLEMA ────────────────────────────────────────────────────── -->
 <section id="solucao">
   <div class="wrap">
     <div class="eyebrow green" data-i18n="sec.problem">A assimetria de informação</div>
@@ -280,9 +218,9 @@
       <div class="problem-col">
         <h3 data-i18n="prob.without">Sem RotaViva</h3>
         <ul>
-          <li><span class="ico red">✗</span><span data-i18n="p1.1">Decisão reativa: o veículo já está bloqueado quando o gestor percebe o problema.</span></li>
+          <li><span class="ico red">✗</span><span data-i18n="p1.1">Decisão reativa: o veículo já está bloqueado quando o gestor percebe.</span></li>
           <li><span class="ico red">✗</span><span data-i18n="p1.2">Multas SMTR acumuladas por não cumprimento de viagem em eventos previsíveis.</span></li>
-          <li><span class="ico red">✗</span><span data-i18n="p1.3">Linhas críticas e linhas estáveis tratadas com o mesmo protocolo de risco.</span></li>
+          <li><span class="ico red">✗</span><span data-i18n="p1.3">Linhas críticas e estáveis tratadas com o mesmo protocolo de risco.</span></li>
           <li><span class="ico red">✗</span><span data-i18n="p1.4">Defesa de multas sem evidência documental de força maior climática.</span></li>
           <li><span class="ico red">✗</span><span data-i18n="p1.5">Seguradoras precificam risco de frota sem dados preditivos de corredor.</span></li>
         </ul>
@@ -291,48 +229,30 @@
         <h3 data-i18n="prob.with">Com RotaViva</h3>
         <ul>
           <li><span class="ico green">→</span><span data-i18n="p2.1">30 minutos de antecedência: a decisão de desvio é tomada antes do bloqueio acontecer.</span></li>
-          <li><span class="ico green">→</span><span data-i18n="p2.2">Alertas por corredor reduzem exposição a multas de viagem em dias de chuva em até 55%.</span></li>
-          <li><span class="ico green">→</span><span data-i18n="p2.3">Score de risco Tier A/B/C por linha — cada rota gerenciada pelo seu nível real de exposição.</span></li>
-          <li><span class="ico green">→</span><span data-i18n="p2.4">Geração automática de evidências climáticas para recurso CORIN com argumento de força maior.</span></li>
-          <li><span class="ico green">→</span><span data-i18n="p2.5">Dados de risco por corredor para modelagem de risco de frota e precificação dinâmica.</span></li>
+          <li><span class="ico green">→</span><span data-i18n="p2.2">Alertas por corredor reduzem exposição a multas em dias de chuva em até 55%.</span></li>
+          <li><span class="ico green">→</span><span data-i18n="p2.3">Score de risco Tier A/B/C por linha — cada rota gerenciada pelo risco real.</span></li>
+          <li><span class="ico green">→</span><span data-i18n="p2.4">Geração automática de evidências climáticas para recurso CORIN — força maior.</span></li>
+          <li><span class="ico green">→</span><span data-i18n="p2.5">Dados de risco por corredor para modelagem e precificação dinâmica de apólice.</span></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PRODUTO ─────────────────────────────────────────────────────── -->
 <section style="padding-top:0">
   <div class="wrap">
     <div class="eyebrow green" data-i18n="sec.product">Capacidades operacionais</div>
     <h2 data-i18n="prod.h2"><em>Quatro módulos.</em> Uma vantagem<br>operacional permanente.</h2>
     <p class="section-lead" data-i18n="prod.lead">A API RotaViva integra ao sistema de gestão de frota existente em 48h. Sem substituição de plataforma. Sem novo processo de treinamento.</p>
     <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-tag" data-i18n="ft1.tag">Módulo 1</div>
-        <h4 data-i18n="ft1.h">Radar Preditivo Climático</h4>
-        <p data-i18n="ft1.p">Cruzamento em tempo real de GPS de frota, pluviometria COR e histórico de 10 anos de bloqueios viários. Alerta por corredor, não por bairro. Antecedência de 30 minutos.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-tag" data-i18n="ft2.tag">Módulo 2</div>
-        <h4 data-i18n="ft2.h">Heatmap de Risco por Linha</h4>
-        <p data-i18n="ft2.p">467 linhas SPPO classificadas por score de risco climático (Tier A crítico / B alto / C padrão). As 25 linhas de maior exposição identificadas com granularidade de trecho.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-tag" data-i18n="ft3.tag">Módulo 3</div>
-        <h4 data-i18n="ft3.h">Defesa Documentada de Multas</h4>
-        <p data-i18n="ft3.p">Geração automática de evidências climáticas para recurso junto à CORIN. Cada evento de chuva gera um audit trail com timestamp, pluviometria e decisão de gestor — prova documental de força maior.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-tag" data-i18n="ft4.tag">Módulo 4</div>
-        <h4 data-i18n="ft4.h">Dashboard de Impacto Operacional</h4>
-        <p data-i18n="ft4.p">Relatório por período com multas evitadas, valores abonados em recurso, receita operacional protegida e ROI documentado. Exportável para board, diretoria e auditor regulatório.</p>
-      </div>
+      <div class="feat-card"><div class="feat-tag" data-i18n="ft1.tag">Módulo 1</div><h4 data-i18n="ft1.h">Radar Preditivo Climático</h4><p data-i18n="ft1.p">Cruzamento em tempo real de GPS de frota, pluviometria COR e histórico de 10 anos de bloqueios viários. Alerta por corredor, não por bairro. Antecedência de 30 minutos.</p></div>
+      <div class="feat-card"><div class="feat-tag" data-i18n="ft2.tag">Módulo 2</div><h4 data-i18n="ft2.h">Heatmap de Risco por Linha</h4><p data-i18n="ft2.p">467 linhas SPPO classificadas por score de risco climático (Tier A crítico / B alto / C padrão). As 25 linhas de maior exposição identificadas com granularidade de trecho.</p></div>
+      <div class="feat-card"><div class="feat-tag" data-i18n="ft3.tag">Módulo 3</div><h4 data-i18n="ft3.h">Defesa Documentada de Multas</h4><p data-i18n="ft3.p">Geração automática de evidências climáticas para recurso junto à CORIN. Cada evento gera audit trail com timestamp, pluviometria e decisão de gestor — prova de força maior.</p></div>
+      <div class="feat-card"><div class="feat-tag" data-i18n="ft4.tag">Módulo 4</div><h4 data-i18n="ft4.h">Dashboard de Impacto Operacional</h4><p data-i18n="ft4.p">Relatório por período com multas evitadas, valores abonados, receita protegida e ROI documentado. Exportável para board, diretoria e auditor regulatório.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ── CLIENTES ────────────────────────────────────────────────────── -->
 <section id="clientes">
   <div class="wrap">
     <div class="eyebrow green" data-i18n="sec.clients">Para quem</div>
@@ -342,7 +262,7 @@
       <div class="audience-card">
         <span class="tag" data-i18n="ac1.tag">Perfil 1</span>
         <h4 data-i18n="ac1.h">Operadoras SPPO</h4>
-        <p data-i18n="ac1.p">Empresas de transporte público por ônibus sob concessão SMTR/SPPO, com frota operante e exposição direta a multas disciplinares por não cumprimento de viagem em eventos climáticos.</p>
+        <p data-i18n="ac1.p">Empresas de transporte público sob concessão SMTR/SPPO, com frota operante e exposição direta a multas disciplinares por não cumprimento de viagem em eventos climáticos.</p>
         <ul>
           <li data-i18n="ac1.1">Redução de multas SMTR em até 55%</li>
           <li data-i18n="ac1.2">Defesa documental em recursos CORIN</li>
@@ -353,10 +273,10 @@
       <div class="audience-card" style="background:rgba(0,200,122,0.03)">
         <span class="tag" data-i18n="ac2.tag">Perfil 2</span>
         <h4 data-i18n="ac2.h">Seguradoras de Frota</h4>
-        <p data-i18n="ac2.p">Seguradoras com carteira de veículos pesados operando em centros urbanos sujeitos a disrupções climáticas. Necessidade de dados preditivos para precificação de risco e gestão de sinistros.</p>
+        <p data-i18n="ac2.p">Seguradoras com carteira de veículos pesados em centros urbanos sujeitos a disrupções climáticas. Necessidade de dados preditivos para precificação e gestão de sinistros.</p>
         <ul>
           <li data-i18n="ac2.1">Score de risco climático por corredor</li>
-          <li data-i18n="ac2.2">Dados históricos de 10 anos de eventos</li>
+          <li data-i18n="ac2.2">Histórico de 10 anos de eventos</li>
           <li data-i18n="ac2.3">Precificação dinâmica de apólice por rota</li>
           <li data-i18n="ac2.4">Auditoria de sinistro com evidência climática</li>
         </ul>
@@ -368,7 +288,7 @@
         <ul>
           <li data-i18n="ac3.1">Visibilidade de risco em tempo real por corredor</li>
           <li data-i18n="ac3.2">Integração com sistemas de monitoramento existentes</li>
-          <li data-i18n="ac3.3">Protocolo de resposta a evento com antecedência</li>
+          <li data-i18n="ac3.3">Protocolo de resposta com antecedência</li>
           <li data-i18n="ac3.4">Dados para planejamento regulatório</li>
         </ul>
       </div>
@@ -376,7 +296,6 @@
   </div>
 </section>
 
-<!-- ── PROOF ───────────────────────────────────────────────────────── -->
 <section id="validacoes">
   <div class="wrap">
     <div class="eyebrow green" data-i18n="sec.proof">Validações institucionais</div>
@@ -406,16 +325,13 @@
   </div>
 </section>
 
-<!-- ── POWERVIZION ─────────────────────────────────────────────────── -->
 <section id="powervizion" style="padding-top:0">
   <div class="wrap">
     <div class="pv-block">
       <div class="pv-tag">PowerVizion</div>
       <h2 class="pv" data-i18n="pv.h2">O OS de inteligência<br><em>organizacional.</em></h2>
-      <p data-i18n="pv.p">Enquanto o RotaViva resolve inteligência operacional de mobilidade, o PowerVizion conecta todos os departamentos da organização — jurídico, RH, financeiro, operações — num único sistema que percebe, propõe e executa. Em produção na Ambev, Itaipava e Panini.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-        <a href="mailto:davi@sebrads.com?subject=PowerVizion — Demo Corporativo" class="btn-pv" data-i18n="pv.cta">Solicitar demo corporativo →</a>
-      </div>
+      <p data-i18n="pv.p">Enquanto o RotaViva resolve inteligência operacional de mobilidade, o PowerVizion conecta todos os departamentos — jurídico, RH, financeiro, operações — num único sistema que percebe, propõe e executa. Em produção na Ambev, Itaipava e Panini.</p>
+      <a href="mailto:davi@sebrads.com?subject=PowerVizion — Demo Corporativo" class="btn-pv" data-i18n="pv.cta">Solicitar demo corporativo →</a>
       <div class="pv-clients">
         <span class="pv-client">Ambev · Logística</span>
         <span class="pv-client">Itaipava · Industrial</span>
@@ -427,13 +343,12 @@
   </div>
 </section>
 
-<!-- ── INVESTIDORES ────────────────────────────────────────────────── -->
 <section id="investidores">
   <div class="wrap">
     <div class="investor-strip">
       <div class="inv-text">
         <h3 data-i18n="inv.h3">Pre-Series A · Closing T+90</h3>
-        <p data-i18n="inv.p">RotaViva e PowerVizion compartilham o mesmo IP de orquestração de agentes (patente pendente INPI). Dois produtos em produção, uma captação de R$ 2,5M. Material disponível sob NDA mediante solicitação.</p>
+        <p data-i18n="inv.p">RotaViva e PowerVizion compartilham o mesmo IP de orquestração de agentes (patente pendente INPI). Dois produtos em produção, uma captação de R$ 2,5M. Material disponível sob NDA.</p>
         <div style="margin-top:24px"><a href="mailto:davi@sebrads.com?subject=Investidor · RotaViva+PowerVizion" class="btn-pv" data-i18n="inv.cta">Solicitar one-pager + deck →</a></div>
       </div>
       <div class="inv-metrics">
@@ -445,35 +360,32 @@
   </div>
 </section>
 
-<!-- ── PRICING (menu-accessible, not promoted) ────────────────────── -->
 <section id="planos" class="pricing-section">
   <div class="wrap">
     <div class="eyebrow green" data-i18n="sec.plans">Estrutura comercial</div>
     <h2 data-i18n="plans.h2">Três níveis de exposição.<br><em>Um modelo que captura o risco real.</em></h2>
-    <p class="section-lead" data-i18n="plans.lead">O valor cobrado reflete o risco climático da sua operação. Operadoras em corredores críticos têm maior exposição a multas — e maior ROI com RotaViva. O success fee é cobrado apenas sobre multas efetivamente abonadas em recurso CORIN.</p>
+    <p class="section-lead" data-i18n="plans.lead">O valor cobrado reflete o risco climático da sua operação. O success fee é cobrado apenas sobre multas efetivamente abonadas em recurso CORIN.</p>
     <div class="pricing-grid">
-
       <div class="pricing-card">
         <div class="pricing-tier-label" data-i18n="pt1.label">Padrão</div>
         <div class="pricing-price">R$15 <small data-i18n="per.bus">/ônibus/mês</small></div>
         <div class="pricing-sf" data-i18n="pt1.sf">+ 25% success fee sobre multas abonadas em recurso</div>
-        <div class="pricing-who" data-i18n="pt1.who">Para operadoras em linhas de risco climático moderado — corredores estáveis, baixa frequência de bloqueios históricos. Frota de qualquer tamanho com rotas fora dos corredores críticos do Rio.</div>
+        <div class="pricing-who" data-i18n="pt1.who">Para operadoras em linhas de risco climático moderado — corredores estáveis, baixa frequência de bloqueios históricos. Qualquer tamanho de frota fora dos corredores críticos do Rio.</div>
         <ul class="pricing-feats">
           <li data-i18n="pt1.f1">Radar preditivo climático (alertas em tempo real)</li>
           <li data-i18n="pt1.f2">Score de risco por linha (Tier C)</li>
           <li data-i18n="pt1.f3">Dashboard mensal de impacto operacional</li>
           <li data-i18n="pt1.f4">Suporte técnico padrão (SLA 48h)</li>
-          <li data-i18n="pt1.f5">Integração via API REST (onboarding em 48h)</li>
+          <li data-i18n="pt1.f5">Integração via API REST (onboarding 48h)</li>
         </ul>
         <div class="pricing-cta-note" data-i18n="pt1.note">Indicado para operadoras que querem reduzir exposição regulatória com investimento inicial controlado.</div>
       </div>
-
       <div class="pricing-card featured">
         <div class="pricing-rec" data-i18n="plans.rec">Mais contratado</div>
         <div class="pricing-tier-label" data-i18n="pt2.label">Alto Risco</div>
         <div class="pricing-price">R$40 <small data-i18n="per.bus2">/ônibus/mês</small></div>
         <div class="pricing-sf" data-i18n="pt2.sf">+ 25% success fee sobre multas abonadas em recurso</div>
-        <div class="pricing-who" data-i18n="pt2.who">Para operadoras com linhas nos principais corredores do Rio — Tijuca, Linha Vermelha, Meier, Saens Pena. Alta frequência de eventos climáticos, maior exposição a multas SMTR por viagem não cumprida.</div>
+        <div class="pricing-who" data-i18n="pt2.who">Para operadoras com linhas nos principais corredores do Rio — Tijuca, Linha Vermelha, Meier, Saens Pena. Alta frequência de eventos climáticos, maior exposição a multas SMTR.</div>
         <ul class="pricing-feats">
           <li data-i18n="pt2.f1">Tudo do nível Padrão</li>
           <li data-i18n="pt2.f2">Heatmap de risco por corredor (Tier B)</li>
@@ -484,12 +396,11 @@
         </ul>
         <div class="pricing-cta-note" data-i18n="pt2.note">Payback médio inferior a 3 meses para operadoras com 15+ linhas em corredores de risco alto.</div>
       </div>
-
       <div class="pricing-card">
         <div class="pricing-tier-label" data-i18n="pt3.label">Crítico</div>
         <div class="pricing-price">R$80 <small data-i18n="per.bus3">/ônibus/mês</small></div>
         <div class="pricing-sf" data-i18n="pt3.sf">+ 25% success fee sobre multas abonadas em recurso</div>
-        <div class="pricing-who" data-i18n="pt3.who">Para operadoras nos corredores de maior risco climático do Rio — Rebouças, Niemeyer, Linha Amarela, Rocinha. Exposição máxima a multas. Maior ROI, maior complexidade operacional.</div>
+        <div class="pricing-who" data-i18n="pt3.who">Para operadoras nos corredores de maior risco climático do Rio — Rebouças, Niemeyer, Linha Amarela, Rocinha. Exposição máxima a multas, maior ROI.</div>
         <ul class="pricing-feats">
           <li data-i18n="pt3.f1">Tudo do nível Alto Risco</li>
           <li data-i18n="pt3.f2">Cobertura Tier A (corredores críticos)</li>
@@ -498,15 +409,13 @@
           <li data-i18n="pt3.f5">SLA dedicado + gerente de conta</li>
           <li data-i18n="pt3.f6">Setup fee: R$ 5.000 one-off</li>
         </ul>
-        <div class="pricing-cta-note" data-i18n="pt3.note">Para operadoras com linhas em Rebouças, Niemeyer ou Linha Amarela: ROI anual documentado superior a 400% no cenário base.</div>
+        <div class="pricing-cta-note" data-i18n="pt3.note">ROI anual documentado superior a 400% para operadoras em Rebouças, Niemeyer ou Linha Amarela.</div>
       </div>
-
     </div>
     <p style="font-size:13px;color:var(--text-dim);margin-top:24px;text-align:center" data-i18n="plans.footer">Os planos são apresentados após qualificação. Entre em contato com nossos especialistas para avaliação do perfil da sua operação.</p>
   </div>
 </section>
 
-<!-- ── FORMULÁRIO ──────────────────────────────────────────────────── -->
 <section id="contato" class="form-section">
   <div class="wrap">
     <div class="form-wrap">
@@ -521,13 +430,9 @@
           <li data-i18n="fb.4">Proposta comercial sob medida sem compromisso</li>
         </ul>
       </div>
-
       <div class="contact-form">
-        <!-- INSTRUÇÃO: Criar conta em formspree.io, criar um formulário e substituir YOUR_FORM_ID abaixo pelo ID gerado. -->
-        <form id="contactForm" action="https://formspree.io/f/xpwzoyln" method="POST" onsubmit="handleSubmit(event)">
+        <form id="contactForm" action="https://formspree.io/f/xpqbkzkl" method="POST" onsubmit="handleSubmit(event)">
           <input type="hidden" name="_subject" value="[RotaViva] Nova solicitação de especialista">
-          <input type="hidden" name="_replyto" value="">
-
           <div class="form-row">
             <div class="form-field">
               <label data-i18n="ff.name">Nome completo</label>
@@ -538,12 +443,10 @@
               <input type="text" name="cargo" placeholder="Diretor de Operações" required />
             </div>
           </div>
-
           <div class="form-field">
             <label data-i18n="ff.company">Empresa</label>
             <input type="text" name="empresa" placeholder="Razão social ou nome comercial" required />
           </div>
-
           <div class="form-row">
             <div class="form-field">
               <label data-i18n="ff.email">E-mail corporativo</label>
@@ -554,282 +457,80 @@
               <input type="tel" name="telefone" placeholder="+55 (21) 9 9999-9999" />
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-field">
               <label data-i18n="ff.type">Tipo de organização</label>
               <select name="tipo_organizacao" required>
-                <option value="" disabled selected data-i18n="ff.type.ph">Selecionar</option>
-                <option value="operadora_sppo" data-i18n="ff.t1">Operadora SPPO / Ônibus urbano</option>
-                <option value="seguradora" data-i18n="ff.t2">Seguradora de frota</option>
-                <option value="centro_operacoes" data-i18n="ff.t3">Centro de operações urbanas</option>
-                <option value="logistica" data-i18n="ff.t4">Logística / Frota corporativa</option>
-                <option value="outro" data-i18n="ff.t5">Outro</option>
+                <option value="" disabled selected>Selecionar</option>
+                <option value="operadora_sppo">Operadora SPPO / Ônibus urbano</option>
+                <option value="seguradora">Seguradora de frota</option>
+                <option value="centro_operacoes">Centro de operações urbanas</option>
+                <option value="logistica">Logística / Frota corporativa</option>
+                <option value="outro">Outro</option>
               </select>
             </div>
             <div class="form-field">
               <label data-i18n="ff.fleet">Tamanho da frota (ônibus)</label>
               <select name="frota" required>
-                <option value="" disabled selected data-i18n="ff.fleet.ph">Selecionar</option>
-                <option value="ate50" data-i18n="ff.f1">Até 50 veículos</option>
-                <option value="50a150" data-i18n="ff.f2">50 a 150 veículos</option>
-                <option value="150a400" data-i18n="ff.f3">150 a 400 veículos</option>
-                <option value="400mais" data-i18n="ff.f4">Acima de 400 veículos</option>
+                <option value="" disabled selected>Selecionar</option>
+                <option value="ate50">Até 50 veículos</option>
+                <option value="50a150">50 a 150 veículos</option>
+                <option value="150a400">150 a 400 veículos</option>
+                <option value="400mais">Acima de 400 veículos</option>
               </select>
             </div>
           </div>
-
           <div class="form-field">
             <label data-i18n="ff.challenge">Principal desafio operacional</label>
             <textarea name="desafio" placeholder="Descreva brevemente o problema que você enfrenta com gestão de frota em dias de chuva, multas regulatórias ou risco climático..." required></textarea>
           </div>
-
-          <button type="submit" class="form-submit" data-i18n="ff.submit">Solicitar avaliação gratuita →</button>
+          <button type="submit" class="form-submit" data-i18n="ff.submit">Solicitar avaliação →</button>
           <p class="form-note" data-i18n="ff.note">Respondemos em até 48 horas úteis. Nenhum compromisso comercial até você decidir avançar.</p>
         </form>
         <div class="form-success" id="formSuccess">
           <h3 data-i18n="fs.h">✓ Solicitação recebida</h3>
-          <p data-i18n="fs.p">Nossa equipe entrará em contato em até 48 horas úteis. Verifique também a caixa de spam.</p>
+          <p data-i18n="fs.p">Nossa equipe entrará em contato em até 48 horas úteis.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ──────────────────────────────────────────────────────── -->
 <footer>
   <div class="wrap footer-inner">
     <div class="footer-brand">RotaViva · PowerVizion · © 2026 · Rio de Janeiro, Brasil</div>
     <div class="footer-links">
-      <a href="#contato" data-i18n="foot.contact">Contato</a>
-      <a href="#investidores" data-i18n="foot.inv">Investidores</a>
-      <a href="#planos" onclick="showPricing(event)" data-i18n="foot.plans">Planos</a>
+      <a href="#contato">Contato</a>
+      <a href="#investidores">Investidores</a>
+      <a href="#planos" onclick="showPricing(event)">Planos</a>
       <a href="mailto:davi@sebrads.com">davi@sebrads.com</a>
     </div>
   </div>
 </footer>
 
 <script>
-// ── LANG ─────────────────────────────────────────────────────────────
-const T = {
-pt: {
-  "nav.solution":"Solução","nav.clients":"Clientes","nav.proof":"Validações",
-  "nav.investors":"Investidores","nav.plans":"Planos","nav.cta":"Falar com especialistas",
-  "hero.badge":"Operações ativas · Rio de Janeiro · 2026",
-  "hero.h1":"A única plataforma que sabe<br><em>o que a chuva vai fazer</em><br>à sua frota.",
-  "hero.sub":"Inteligência preditiva de mobilidade urbana. Cruzamos 10 anos de GPS de frota com pluviometria real e entregamos decisão operacional com 30 minutos de antecedência.",
-  "hero.cta":"Falar com nossos especialistas →","hero.ghost":"Ver como funciona",
-  "stat.1":"Aumento de risco de bloqueio com chuva acima de 30mm/h",
-  "stat.2":"Antecedência operacional — tempo real de decisão antes do evento",
-  "stat.3":"De histórico de GPS e pluviometria processados. Data moat impossível de replicar.",
-  "stat.4":"Passivo anual estimado em multas SMTR para operadoras SPPO do Rio",
-  "sec.problem":"A assimetria de informação",
-  "prob.h2":"O mercado reage.<br><em>Nossos parceiros antecipam.</em>",
-  "prob.lead":"Operadoras, seguradoras e gestores de mobilidade urbana que operam sem inteligência climática preditiva tomam decisões de frota no escuro. O custo aparece depois — em multas, paralisações e sinistros.",
-  "prob.without":"Sem RotaViva","prob.with":"Com RotaViva",
-  "p1.1":"Decisão reativa: o veículo já está bloqueado quando o gestor percebe o problema.",
-  "p1.2":"Multas SMTR acumuladas por não cumprimento de viagem em eventos previsíveis.",
-  "p1.3":"Linhas críticas e estáveis tratadas com o mesmo protocolo de risco.",
-  "p1.4":"Defesa de multas sem evidência documental de força maior climática.",
-  "p1.5":"Seguradoras precificam risco de frota sem dados preditivos de corredor.",
-  "p2.1":"30 minutos de antecedência: a decisão de desvio é tomada antes do bloqueio acontecer.",
-  "p2.2":"Alertas por corredor reduzem exposição a multas de viagem em dias de chuva em até 55%.",
-  "p2.3":"Score de risco Tier A/B/C por linha — cada rota gerenciada pelo seu nível real de exposição.",
-  "p2.4":"Geração automática de evidências climáticas para recurso CORIN com argumento de força maior.",
-  "p2.5":"Dados de risco por corredor para modelagem de risco de frota e precificação dinâmica.",
-  "sec.product":"Capacidades operacionais",
-  "prod.h2":"<em>Quatro módulos.</em> Uma vantagem<br>operacional permanente.",
-  "prod.lead":"A API RotaViva integra ao sistema de gestão de frota existente em 48h. Sem substituição de plataforma. Sem novo processo de treinamento.",
-  "ft1.tag":"Módulo 1","ft1.h":"Radar Preditivo Climático","ft1.p":"Cruzamento em tempo real de GPS de frota, pluviometria COR e histórico de 10 anos de bloqueios viários. Alerta por corredor, não por bairro. Antecedência de 30 minutos.",
-  "ft2.tag":"Módulo 2","ft2.h":"Heatmap de Risco por Linha","ft2.p":"467 linhas SPPO classificadas por score de risco climático (Tier A crítico / B alto / C padrão). As 25 linhas de maior exposição identificadas com granularidade de trecho.",
-  "ft3.tag":"Módulo 3","ft3.h":"Defesa Documentada de Multas","ft3.p":"Geração automática de evidências climáticas para recurso junto à CORIN. Cada evento gera um audit trail com timestamp, pluviometria e decisão de gestor — prova documental de força maior.",
-  "ft4.tag":"Módulo 4","ft4.h":"Dashboard de Impacto Operacional","ft4.p":"Relatório por período com multas evitadas, valores abonados, receita protegida e ROI documentado. Exportável para board, diretoria e auditor regulatório.",
-  "sec.clients":"Para quem",
-  "cli.h2":"Três perfis de cliente.<br><em>Um sistema que se adapta a cada um.</em>",
-  "cli.lead":"RotaViva não é um produto genérico de dados climáticos. É uma plataforma operacional desenhada para quem tem responsabilidade direta sobre frota, compliance regulatório ou risco de mobilidade.",
-  "ac1.tag":"Perfil 1","ac1.h":"Operadoras SPPO","ac1.p":"Empresas de transporte público sob concessão SMTR/SPPO, com exposição direta a multas disciplinares por não cumprimento de viagem em eventos climáticos.",
-  "ac1.1":"Redução de multas SMTR em até 55%","ac1.2":"Defesa documental em recursos CORIN","ac1.3":"Decisão de desvio antes do bloqueio","ac1.4":"ROI documentado por evento",
-  "ac2.tag":"Perfil 2","ac2.h":"Seguradoras de Frota","ac2.p":"Seguradoras com carteira de veículos pesados em centros urbanos sujeitos a disrupções climáticas. Necessidade de dados preditivos para precificação e gestão de sinistros.",
-  "ac2.1":"Score de risco climático por corredor","ac2.2":"Histórico de 10 anos de eventos","ac2.3":"Precificação dinâmica por rota","ac2.4":"Auditoria de sinistro com evidência climática",
-  "ac3.tag":"Perfil 3","ac3.h":"Centros de Operações Urbanas","ac3.p":"COR e equivalentes municipais, prefeituras e secretarias de transporte responsáveis pela gestão de crises climáticas em corredores de mobilidade urbana.",
-  "ac3.1":"Visibilidade de risco em tempo real por corredor","ac3.2":"Integração com sistemas de monitoramento existentes","ac3.3":"Protocolo de resposta com antecedência","ac3.4":"Dados para planejamento regulatório",
-  "sec.proof":"Validações institucionais",
-  "proof.h2":"Endossado por quem<br><em>opera a cidade.</em>",
-  "proof.lead":"Validação técnica pela SMTR, contrato internacional com o IKI e pilotos em produção — antes de qualquer captação de escala.",
-  "q1":'"A lógica de detecção de anomalias proposta endereça uma lacuna real do sistema atual."',"q1.role":"Subsecretário · SMTR · Prefeitura do Rio",
-  "q2":'"Dá visibilidade a desvios de rota que hoje são invisíveis ao sistema de monitoramento."',"q2.role":"Equipe Técnica · SMTR · Prefeitura do Rio",
-  "q3":'"Real-time fleet operational intelligence and climate disruption response — running in production."',"q3.role":"Operadora SPPO · Piloto ativo",
-  "pv.h2":"O OS de inteligência<br><em>organizacional.</em>",
-  "pv.p":"Enquanto o RotaViva resolve inteligência operacional de mobilidade, o PowerVizion conecta todos os departamentos — jurídico, RH, financeiro, operações — num único sistema que percebe, propõe e executa. Em produção na Ambev, Itaipava e Panini.",
-  "pv.cta":"Solicitar demo corporativo →",
-  "inv.h3":"Pre-Series A · Closing T+90","inv.p":"RotaViva e PowerVizion compartilham o mesmo IP de orquestração de agentes (patente pendente INPI). Dois produtos em produção, uma captação de R$ 2,5M. Material disponível sob NDA.",
-  "inv.cta":"Solicitar one-pager + deck →","inv.m1":"Meta Pre-Series A","inv.m2":"ARR projetado M36","inv.m3":"Países LATAM",
-  "sec.plans":"Estrutura comercial",
-  "plans.h2":"Três níveis de exposição.<br><em>Um modelo que captura o risco real.</em>",
-  "plans.lead":"O valor cobrado reflete o risco climático da sua operação. O success fee é cobrado apenas sobre multas efetivamente abonadas em recurso CORIN.",
-  "per.bus":"/ônibus/mês","per.bus2":"/ônibus/mês","per.bus3":"/ônibus/mês",
-  "pt1.label":"Padrão","pt1.sf":"+ 25% success fee sobre multas abonadas em recurso",
-  "pt1.who":"Para operadoras em linhas de risco climático moderado — corredores estáveis, baixa frequência de bloqueios históricos. Frota de qualquer tamanho com rotas fora dos corredores críticos do Rio.",
-  "pt1.f1":"Radar preditivo climático (alertas em tempo real)","pt1.f2":"Score de risco por linha (Tier C)","pt1.f3":"Dashboard mensal de impacto operacional","pt1.f4":"Suporte técnico padrão (SLA 48h)","pt1.f5":"Integração via API REST (onboarding em 48h)",
-  "pt1.note":"Indicado para operadoras que querem reduzir exposição regulatória com investimento inicial controlado.",
-  "plans.rec":"Mais contratado",
-  "pt2.label":"Alto Risco","pt2.sf":"+ 25% success fee sobre multas abonadas em recurso",
-  "pt2.who":"Para operadoras com linhas nos principais corredores do Rio — Tijuca, Linha Vermelha, Meier, Saens Pena. Alta frequência de eventos climáticos, maior exposição a multas SMTR.",
-  "pt2.f1":"Tudo do nível Padrão","pt2.f2":"Heatmap de risco por corredor (Tier B)","pt2.f3":"Geração automática de evidências para recurso CORIN","pt2.f4":"Relatório de ROI por período (auditável)","pt2.f5":"Suporte prioritário (SLA 24h)","pt2.f6":"Setup fee: R$ 2.500 one-off",
-  "pt2.note":"Payback médio inferior a 3 meses para operadoras com 15+ linhas em corredores de risco alto.",
-  "pt3.label":"Crítico","pt3.sf":"+ 25% success fee sobre multas abonadas em recurso",
-  "pt3.who":"Para operadoras nos corredores de maior risco climático do Rio — Rebouças, Niemeyer, Linha Amarela, Rocinha. Exposição máxima, maior ROI.",
-  "pt3.f1":"Tudo do nível Alto Risco","pt3.f2":"Cobertura Tier A (corredores críticos)","pt3.f3":"Relatório jurídico para defesa de multas","pt3.f4":"Integração com sistema CORIN","pt3.f5":"SLA dedicado + gerente de conta","pt3.f6":"Setup fee: R$ 5.000 one-off",
-  "pt3.note":"Para operadoras com linhas em Rebouças, Niemeyer ou Linha Amarela: ROI anual documentado superior a 400%.",
-  "plans.footer":"Os planos são apresentados após qualificação. Entre em contato com nossos especialistas para avaliação do perfil da sua operação.",
-  "sec.contact":"Falar com especialistas",
-  "form.h2":"Avaliação da sua operação em até 48h.","form.p":"Nosso time analisa o perfil da sua frota, corredores de operação e exposição regulatória — e entrega uma avaliação de impacto personalizada antes de qualquer proposta comercial.",
-  "fb.1":"Diagnóstico de exposição a multas SMTR por linha","fb.2":"Estimativa de ROI para o perfil da sua operação","fb.3":"Demonstração técnica da API com dados reais","fb.4":"Proposta comercial sob medida sem compromisso",
-  "ff.name":"Nome completo","ff.role":"Cargo","ff.company":"Empresa","ff.email":"E-mail corporativo","ff.phone":"Telefone / WhatsApp","ff.type":"Tipo de organização","ff.type.ph":"Selecionar","ff.fleet":"Tamanho da frota (ônibus)","ff.fleet.ph":"Selecionar",
-  "ff.t1":"Operadora SPPO / Ônibus urbano","ff.t2":"Seguradora de frota","ff.t3":"Centro de operações urbanas","ff.t4":"Logística / Frota corporativa","ff.t5":"Outro",
-  "ff.f1":"Até 50 veículos","ff.f2":"50 a 150 veículos","ff.f3":"150 a 400 veículos","ff.f4":"Acima de 400 veículos",
-  "ff.challenge":"Principal desafio operacional","ff.submit":"Solicitar avaliação →","ff.note":"Respondemos em até 48 horas úteis. Nenhum compromisso comercial até você decidir avançar.",
-  "fs.h":"✓ Solicitação recebida","fs.p":"Nossa equipe entrará em contato em até 48 horas úteis.",
-  "foot.contact":"Contato","foot.inv":"Investidores","foot.plans":"Planos"
-},
-en: {
-  "nav.solution":"Solution","nav.clients":"Clients","nav.proof":"Validation",
-  "nav.investors":"Investors","nav.plans":"Plans","nav.cta":"Talk to our team",
-  "hero.badge":"Active operations · Rio de Janeiro · 2026",
-  "hero.h1":"The only platform that knows<br><em>what rain will do</em><br>to your fleet.",
-  "hero.sub":"Predictive urban mobility intelligence. We cross-reference 10 years of fleet GPS with real-time pluviometry and deliver operational decisions 30 minutes before the event.",
-  "hero.cta":"Talk to our specialists →","hero.ghost":"See how it works",
-  "stat.1":"Increase in road blockage risk when rainfall exceeds 30mm/h",
-  "stat.2":"Operational lead time — real decision window before the event",
-  "stat.3":"Years of GPS and pluviometry history processed. A data moat impossible to replicate.",
-  "stat.4":"Annual estimated liability in SMTR fines for Rio's SPPO bus operators",
-  "sec.problem":"The information asymmetry",
-  "prob.h2":"The market reacts.<br><em>Our partners anticipate.</em>",
-  "prob.lead":"Bus operators, insurers and urban mobility managers operating without predictive climate intelligence make fleet decisions in the dark. The cost shows up later — in fines, stoppages and claims.",
-  "prob.without":"Without RotaViva","prob.with":"With RotaViva",
-  "p1.1":"Reactive decisions: the vehicle is already blocked by the time the manager notices.",
-  "p1.2":"SMTR fines accumulating from predictable non-completion events.",
-  "p1.3":"Critical and stable routes treated with the same risk protocol.",
-  "p1.4":"Fine appeals without documentary climate force majeure evidence.",
-  "p1.5":"Insurers pricing fleet risk without predictive corridor data.",
-  "p2.1":"30-minute lead time: the rerouting decision is made before the blockage occurs.",
-  "p2.2":"Corridor alerts reduce exposure to weather-related fines by up to 55%.",
-  "p2.3":"Tier A/B/C risk score per route — each managed by its actual risk level.",
-  "p2.4":"Automatic generation of climate evidence for CORIN appeals with force majeure argument.",
-  "p2.5":"Corridor risk data for fleet risk modeling and dynamic pricing.",
-  "sec.product":"Operational capabilities",
-  "prod.h2":"<em>Four modules.</em> One permanent<br>operational advantage.",
-  "prod.lead":"The RotaViva API integrates into existing fleet management systems in 48h. No platform replacement. No new training process.",
-  "ft1.tag":"Module 1","ft1.h":"Predictive Climate Radar","ft1.p":"Real-time cross-referencing of fleet GPS, COR pluviometry and 10 years of road blockage history. Alerts by corridor, not neighborhood. 30-minute lead time.",
-  "ft2.tag":"Module 2","ft2.h":"Route Risk Heatmap","ft2.p":"467 SPPO routes classified by climate risk score (Tier A critical / B high / C standard). The 25 highest-exposure routes identified at segment granularity.",
-  "ft3.tag":"Module 3","ft3.h":"Documented Fine Defense","ft3.p":"Automatic climate evidence generation for CORIN appeals. Every weather event creates an audit trail with timestamp, pluviometry and manager decision — documentary proof of force majeure.",
-  "ft4.tag":"Module 4","ft4.h":"Operational Impact Dashboard","ft4.p":"Period report with avoided fines, appealed amounts, protected operating revenue and documented ROI. Exportable for board, management and regulatory auditor.",
-  "sec.clients":"For whom",
-  "cli.h2":"Three client profiles.<br><em>One system that adapts to each.</em>",
-  "cli.lead":"RotaViva is not a generic climate data product. It is an operational platform designed for those with direct responsibility over fleet, regulatory compliance or mobility risk.",
-  "ac1.tag":"Profile 1","ac1.h":"SPPO Bus Operators","ac1.p":"Public transport companies under SMTR/SPPO concession, with direct exposure to disciplinary fines for non-completion of trips during climate events.",
-  "ac1.1":"Up to 55% reduction in SMTR fines","ac1.2":"Documentary defense in CORIN appeals","ac1.3":"Rerouting decision before blockage","ac1.4":"Documented ROI per event",
-  "ac2.tag":"Profile 2","ac2.h":"Fleet Insurers","ac2.p":"Insurers with heavy vehicle portfolios operating in urban centers subject to climate disruptions. Need for predictive data for risk pricing and claims management.",
-  "ac2.1":"Climate risk score by corridor","ac2.2":"10-year event history","ac2.3":"Dynamic pricing per route","ac2.4":"Claims audit with climate evidence",
-  "ac3.tag":"Profile 3","ac3.h":"Urban Operations Centers","ac3.p":"COR equivalents, municipalities and transport secretariats responsible for managing climate crises in urban mobility corridors.",
-  "ac3.1":"Real-time risk visibility by corridor","ac3.2":"Integration with existing monitoring systems","ac3.3":"Response protocol with advance warning","ac3.4":"Data for regulatory planning",
-  "sec.proof":"Institutional validation",
-  "proof.h2":"Endorsed by those who<br><em>operate the city.</em>",
-  "proof.lead":"Technical validation by SMTR, international contract with IKI and pilots in production — before any scale fundraising.",
-  "q1":'"The proposed anomaly detection logic addresses a real gap in the current system."',"q1.role":"Deputy Secretary · SMTR · City of Rio",
-  "q2":'"It provides visibility into route deviations that are currently invisible to the monitoring system."',"q2.role":"Technical Team · SMTR · City of Rio",
-  "q3":'"Real-time fleet operational intelligence and climate disruption response — running in production."',"q3.role":"SPPO Operator · Active pilot",
-  "pv.h2":"The organizational<br><em>intelligence OS.</em>",
-  "pv.p":"While RotaViva handles mobility operational intelligence, PowerVizion connects every department — legal, HR, finance, operations — into one system that perceives, proposes and executes. Running in production at Ambev, Itaipava and Panini.",
-  "pv.cta":"Request enterprise demo →",
-  "inv.h3":"Pre-Series A · Closing T+90","inv.p":"RotaViva and PowerVizion share the same agent orchestration IP (patent pending, INPI Brazil). Two products in production, one R$2.5M raise. Materials available under NDA.",
-  "inv.cta":"Request one-pager + deck →","inv.m1":"Pre-Series A target","inv.m2":"Projected ARR M36","inv.m3":"LATAM countries",
-  "sec.plans":"Commercial structure",
-  "plans.h2":"Three exposure levels.<br><em>A model that captures real risk.</em>",
-  "plans.lead":"The fee reflects the climate risk of your operation. The success fee applies only to fines effectively waived in CORIN appeals.",
-  "per.bus":"/bus/month","per.bus2":"/bus/month","per.bus3":"/bus/month",
-  "pt1.label":"Standard","pt1.sf":"+ 25% success fee on fines waived in appeals",
-  "pt1.who":"For operators on moderate climate risk routes — stable corridors, low historical blockage frequency. Any fleet size with routes outside Rio's critical corridors.",
-  "pt1.f1":"Predictive climate radar (real-time alerts)","pt1.f2":"Route risk score (Tier C)","pt1.f3":"Monthly operational impact dashboard","pt1.f4":"Standard technical support (48h SLA)","pt1.f5":"REST API integration (48h onboarding)",
-  "pt1.note":"Designed for operators seeking to reduce regulatory exposure with controlled initial investment.",
-  "plans.rec":"Most selected",
-  "pt2.label":"High Risk","pt2.sf":"+ 25% success fee on fines waived in appeals",
-  "pt2.who":"For operators on Rio's main corridors — Tijuca, Linha Vermelha, Meier, Saens Pena. High climate event frequency, greater exposure to SMTR fines.",
-  "pt2.f1":"Everything in Standard","pt2.f2":"Corridor risk heatmap (Tier B)","pt2.f3":"Automatic evidence generation for CORIN","pt2.f4":"ROI report by period (auditable)","pt2.f5":"Priority support (24h SLA)","pt2.f6":"Setup fee: R$2,500 one-off",
-  "pt2.note":"Average payback under 3 months for operators with 15+ routes in high-risk corridors.",
-  "pt3.label":"Critical","pt3.sf":"+ 25% success fee on fines waived in appeals",
-  "pt3.who":"For operators in Rio's highest climate risk corridors — Rebouças, Niemeyer, Linha Amarela, Rocinha. Maximum exposure, highest ROI.",
-  "pt3.f1":"Everything in High Risk","pt3.f2":"Tier A coverage (critical corridors)","pt3.f3":"Legal report for fine defense","pt3.f4":"CORIN system integration","pt3.f5":"Dedicated SLA + account manager","pt3.f6":"Setup fee: R$5,000 one-off",
-  "pt3.note":"For operators with routes on Rebouças, Niemeyer or Linha Amarela: documented annual ROI above 400% in the base case.",
-  "plans.footer":"Plans are presented after qualification. Contact our specialists for an assessment of your operation.",
-  "sec.contact":"Talk to specialists",
-  "form.h2":"Assessment of your operation within 48h.","form.p":"Our team analyzes your fleet profile, operating corridors and regulatory exposure — and delivers a personalized impact assessment before any commercial proposal.",
-  "fb.1":"Diagnostic of SMTR fine exposure by route","fb.2":"ROI estimate for your operation's profile","fb.3":"Technical API demonstration with real data","fb.4":"Custom commercial proposal, no commitment",
-  "ff.name":"Full name","ff.role":"Title","ff.company":"Company","ff.email":"Corporate email","ff.phone":"Phone / WhatsApp","ff.type":"Organization type","ff.type.ph":"Select","ff.fleet":"Fleet size (buses)","ff.fleet.ph":"Select",
-  "ff.t1":"SPPO Bus Operator","ff.t2":"Fleet insurer","ff.t3":"Urban operations center","ff.t4":"Logistics / Corporate fleet","ff.t5":"Other",
-  "ff.f1":"Up to 50 vehicles","ff.f2":"50 to 150 vehicles","ff.f3":"150 to 400 vehicles","ff.f4":"Over 400 vehicles",
-  "ff.challenge":"Main operational challenge","ff.submit":"Request free assessment →","ff.note":"We respond within 48 business hours. No commercial commitment until you decide to move forward.",
-  "fs.h":"✓ Request received","fs.p":"Our team will be in touch within 48 business hours.",
-  "foot.contact":"Contact","foot.inv":"Investors","foot.plans":"Plans"
+function showPricing(e){e.preventDefault();const s=document.getElementById('planos');s.classList.add('visible');setTimeout(()=>s.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+
+async function handleSubmit(e){
+  e.preventDefault();
+  const form=e.target;
+  const btn=form.querySelector('.form-submit');
+  btn.textContent='Enviando...';btn.disabled=true;
+  const data=new FormData(form);
+  try{
+    const res=await fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
+    if(res.ok){document.getElementById('contactForm').style.display='none';document.getElementById('formSuccess').style.display='block';}
+    else{const entries=Array.from(data.entries()).map(([k,v])=>k+': '+v).join('\n');window.location.href='mailto:davi@sebrads.com?subject='+encodeURIComponent('[RotaViva] Nova solicitacao de especialista')+'&body='+encodeURIComponent(entries);btn.textContent='Solicitar avaliação →';btn.disabled=false;}
+  }catch{const entries=Array.from(data.entries()).map(([k,v])=>k+': '+v).join('\n');window.location.href='mailto:davi@sebrads.com?subject='+encodeURIComponent('[RotaViva] Nova solicitacao de especialista')+'&body='+encodeURIComponent(entries);btn.textContent='Solicitar avaliação →';btn.disabled=false;}
 }
+
+const T={
+  pt:{"nav.solution":"Solução","nav.clients":"Clientes","nav.proof":"Validações","nav.investors":"Investidores","nav.plans":"Planos","nav.cta":"Falar com especialistas","hero.badge":"Operações ativas · Rio de Janeiro · 2026","hero.h1":"A única plataforma que sabe<br><em>o que a chuva vai fazer</em><br>à sua frota.","hero.sub":"Inteligência preditiva de mobilidade urbana. Cruzamos 10 anos de GPS de frota com pluviometria real e entregamos decisão operacional com 30 minutos de antecedência.","hero.cta":"Falar com nossos especialistas →","hero.ghost":"Ver como funciona","stat.1":"Aumento de risco de bloqueio com chuva acima de 30mm/h","stat.2":"Antecedência operacional — tempo real de decisão antes do evento","stat.3":"De histórico de GPS e pluviometria. Data moat impossível de replicar.","stat.4":"Passivo anual estimado em multas SMTR para operadoras SPPO do Rio","sec.problem":"A assimetria de informação","prob.h2":"O mercado reage.<br><em>Nossos parceiros antecipam.</em>","prob.lead":"Operadoras, seguradoras e gestores de mobilidade urbana que operam sem inteligência climática preditiva tomam decisões de frota no escuro.","prob.without":"Sem RotaViva","prob.with":"Com RotaViva","p1.1":"Decisão reativa: o veículo já está bloqueado quando o gestor percebe.","p1.2":"Multas SMTR acumuladas por não cumprimento de viagem em eventos previsíveis.","p1.3":"Linhas críticas e estáveis tratadas com o mesmo protocolo de risco.","p1.4":"Defesa de multas sem evidência documental de força maior climática.","p1.5":"Seguradoras precificam risco sem dados preditivos de corredor.","p2.1":"30 minutos de antecedência: a decisão de desvio é tomada antes do bloqueio.","p2.2":"Alertas por corredor reduzem exposição a multas em dias de chuva em até 55%.","p2.3":"Score de risco Tier A/B/C por linha — cada rota gerenciada pelo risco real.","p2.4":"Geração automática de evidências climáticas para recurso CORIN — força maior.","p2.5":"Dados de risco por corredor para modelagem e precificação dinâmica de apólice.","sec.product":"Capacidades operacionais","prod.h2":"<em>Quatro módulos.</em> Uma vantagem<br>operacional permanente.","prod.lead":"A API RotaViva integra ao sistema de gestão de frota existente em 48h. Sem substituição de plataforma.","ft1.tag":"Módulo 1","ft1.h":"Radar Preditivo Climático","ft1.p":"Cruzamento em tempo real de GPS de frota, pluviometria COR e histórico de 10 anos de bloqueios viários. Alerta por corredor, não por bairro. Antecedência de 30 minutos.","ft2.tag":"Módulo 2","ft2.h":"Heatmap de Risco por Linha","ft2.p":"467 linhas SPPO classificadas por score de risco climático. As 25 linhas de maior exposição identificadas com granularidade de trecho.","ft3.tag":"Módulo 3","ft3.h":"Defesa Documentada de Multas","ft3.p":"Geração automática de evidências climáticas para recurso junto à CORIN. Cada evento gera audit trail com timestamp, pluviometria e decisão de gestor.","ft4.tag":"Módulo 4","ft4.h":"Dashboard de Impacto Operacional","ft4.p":"Relatório por período com multas evitadas, valores abonados, receita protegida e ROI documentado. Exportável para board e auditor regulatório.","sec.clients":"Para quem","cli.h2":"Três perfis de cliente.<br><em>Um sistema que se adapta a cada um.</em>","cli.lead":"RotaViva não é um produto genérico de dados climáticos. É uma plataforma operacional desenhada para quem tem responsabilidade direta sobre frota, compliance regulatório ou risco de mobilidade.","ac1.tag":"Perfil 1","ac1.h":"Operadoras SPPO","ac1.p":"Empresas de transporte público sob concessão SMTR/SPPO, com exposição direta a multas disciplinares por não cumprimento de viagem em eventos climáticos.","ac1.1":"Redução de multas SMTR em até 55%","ac1.2":"Defesa documental em recursos CORIN","ac1.3":"Decisão de desvio antes do bloqueio","ac1.4":"ROI documentado por evento","ac2.tag":"Perfil 2","ac2.h":"Seguradoras de Frota","ac2.p":"Seguradoras com carteira de veículos pesados em centros urbanos sujeitos a disrupções climáticas. Dados preditivos para precificação e gestão de sinistros.","ac2.1":"Score de risco climático por corredor","ac2.2":"Histórico de 10 anos de eventos","ac2.3":"Precificação dinâmica por rota","ac2.4":"Auditoria de sinistro com evidência climática","ac3.tag":"Perfil 3","ac3.h":"Centros de Operações Urbanas","ac3.p":"COR e equivalentes municipais, prefeituras e secretarias de transporte responsáveis pela gestão de crises climáticas em corredores de mobilidade urbana.","ac3.1":"Visibilidade de risco em tempo real por corredor","ac3.2":"Integração com sistemas de monitoramento existentes","ac3.3":"Protocolo de resposta com antecedência","ac3.4":"Dados para planejamento regulatório","sec.proof":"Validações institucionais","proof.h2":"Endossado por quem<br><em>opera a cidade.</em>","proof.lead":"Validação técnica pela SMTR, contrato internacional com o IKI e pilotos em produção.","q1":"\"A lógica de detecção de anomalias proposta endereça uma lacuna real do sistema atual.\"","q1.role":"Subsecretário · SMTR · Prefeitura do Rio","q2":"\"Dá visibilidade a desvios de rota que hoje são invisíveis ao sistema de monitoramento.\"","q2.role":"Equipe Técnica · SMTR · Prefeitura do Rio","q3":"\"Real-time fleet operational intelligence and climate disruption response — running in production.\"","q3.role":"Operadora SPPO · Piloto ativo","pv.h2":"O OS de inteligência<br><em>organizacional.</em>","pv.p":"Enquanto o RotaViva resolve inteligência operacional de mobilidade, o PowerVizion conecta todos os departamentos num único sistema que percebe, propõe e executa. Em produção na Ambev, Itaipava e Panini.","pv.cta":"Solicitar demo corporativo →","inv.h3":"Pre-Series A · Closing T+90","inv.p":"RotaViva e PowerVizion compartilham o mesmo IP de orquestração de agentes (patente pendente INPI). Dois produtos em produção, uma captação de R$ 2,5M.","inv.cta":"Solicitar one-pager + deck →","inv.m1":"Meta Pre-Series A","inv.m2":"ARR projetado M36","inv.m3":"Países LATAM","sec.plans":"Estrutura comercial","plans.h2":"Três níveis de exposição.<br><em>Um modelo que captura o risco real.</em>","plans.lead":"O valor cobrado reflete o risco climático da sua operação. O success fee é cobrado apenas sobre multas efetivamente abonadas em recurso CORIN.","per.bus":"/ônibus/mês","per.bus2":"/ônibus/mês","per.bus3":"/ônibus/mês","pt1.label":"Padrão","pt1.sf":"+ 25% success fee sobre multas abonadas em recurso","pt1.who":"Para operadoras em linhas de risco climático moderado — corredores estáveis, baixa frequência de bloqueios históricos.","pt1.f1":"Radar preditivo climático","pt1.f2":"Score de risco por linha (Tier C)","pt1.f3":"Dashboard mensal de impacto","pt1.f4":"Suporte técnico padrão (SLA 48h)","pt1.f5":"Integração via API REST (48h)","pt1.note":"Indicado para operadoras que querem reduzir exposição regulatória com investimento controlado.","plans.rec":"Mais contratado","pt2.label":"Alto Risco","pt2.sf":"+ 25% success fee sobre multas abonadas em recurso","pt2.who":"Para operadoras com linhas nos principais corredores do Rio — Tijuca, Linha Vermelha, Meier, Saens Pena.","pt2.f1":"Tudo do nível Padrão","pt2.f2":"Heatmap de risco por corredor (Tier B)","pt2.f3":"Evidências automáticas para recurso CORIN","pt2.f4":"Relatório de ROI (auditável)","pt2.f5":"Suporte prioritário (SLA 24h)","pt2.f6":"Setup fee: R$ 2.500 one-off","pt2.note":"Payback médio inferior a 3 meses para operadoras com 15+ linhas em corredores de risco alto.","pt3.label":"Crítico","pt3.sf":"+ 25% success fee sobre multas abonadas em recurso","pt3.who":"Para operadoras nos corredores de maior risco — Rebouças, Niemeyer, Linha Amarela, Rocinha. Exposição máxima, maior ROI.","pt3.f1":"Tudo do nível Alto Risco","pt3.f2":"Cobertura Tier A (corredores críticos)","pt3.f3":"Relatório jurídico para defesa de multas","pt3.f4":"Integração com sistema CORIN","pt3.f5":"SLA dedicado + gerente de conta","pt3.f6":"Setup fee: R$ 5.000 one-off","pt3.note":"ROI anual documentado superior a 400% para operadoras em Rebouças, Niemeyer ou Linha Amarela.","plans.footer":"Os planos são apresentados após qualificação. Entre em contato com nossos especialistas.","sec.contact":"Falar com especialistas","form.h2":"Avaliação da sua operação em até 48h.","form.p":"Nosso time analisa o perfil da sua frota, corredores de operação e exposição regulatória — e entrega uma avaliação personalizada antes de qualquer proposta comercial.","fb.1":"Diagnóstico de exposição a multas SMTR por linha","fb.2":"Estimativa de ROI para o perfil da sua operação","fb.3":"Demonstração técnica da API com dados reais","fb.4":"Proposta comercial sob medida sem compromisso","ff.name":"Nome completo","ff.role":"Cargo","ff.company":"Empresa","ff.email":"E-mail corporativo","ff.phone":"Telefone / WhatsApp","ff.type":"Tipo de organização","ff.fleet":"Tamanho da frota (ônibus)","ff.challenge":"Principal desafio operacional","ff.submit":"Solicitar avaliação →","ff.note":"Respondemos em até 48 horas úteis. Nenhum compromisso até você decidir avançar.","fs.h":"✓ Solicitação recebida","fs.p":"Nossa equipe entrará em contato em até 48 horas úteis."},
+  en:{"nav.solution":"Solution","nav.clients":"Clients","nav.proof":"Validation","nav.investors":"Investors","nav.plans":"Plans","nav.cta":"Talk to our team","hero.badge":"Active operations · Rio de Janeiro · 2026","hero.h1":"The only platform that knows<br><em>what rain will do</em><br>to your fleet.","hero.sub":"Predictive urban mobility intelligence. We cross-reference 10 years of fleet GPS with real-time pluviometry and deliver operational decisions 30 minutes before the event.","hero.cta":"Talk to our specialists →","hero.ghost":"See how it works","stat.1":"Increase in road blockage risk when rainfall exceeds 30mm/h","stat.2":"Operational lead time — real decision window before the event","stat.3":"Years of GPS and pluviometry history processed. A data moat impossible to replicate.","stat.4":"Annual estimated liability in SMTR fines for Rio's SPPO bus operators","sec.problem":"The information asymmetry","prob.h2":"The market reacts.<br><em>Our partners anticipate.</em>","prob.lead":"Bus operators, insurers and urban mobility managers without predictive climate intelligence make fleet decisions in the dark.","prob.without":"Without RotaViva","prob.with":"With RotaViva","p1.1":"Reactive decisions: the vehicle is already blocked by the time the manager notices.","p1.2":"SMTR fines accumulating from predictable non-completion events.","p1.3":"Critical and stable routes treated with the same risk protocol.","p1.4":"Fine appeals without documentary climate force majeure evidence.","p1.5":"Insurers pricing fleet risk without predictive corridor data.","p2.1":"30-minute lead time: rerouting decision made before the blockage occurs.","p2.2":"Corridor alerts reduce exposure to weather-related fines by up to 55%.","p2.3":"Tier A/B/C risk score per route — each managed by its actual risk level.","p2.4":"Automatic generation of climate evidence for CORIN appeals — force majeure.","p2.5":"Corridor risk data for fleet risk modeling and dynamic policy pricing.","sec.product":"Operational capabilities","prod.h2":"<em>Four modules.</em> One permanent<br>operational advantage.","prod.lead":"The RotaViva API integrates into existing fleet management systems in 48h. No platform replacement.","ft1.tag":"Module 1","ft1.h":"Predictive Climate Radar","ft1.p":"Real-time cross-referencing of fleet GPS, COR pluviometry and 10 years of road blockage history. Alerts by corridor. 30-minute lead time.","ft2.tag":"Module 2","ft2.h":"Route Risk Heatmap","ft2.p":"467 SPPO routes classified by climate risk score. The 25 highest-exposure routes identified at segment granularity.","ft3.tag":"Module 3","ft3.h":"Documented Fine Defense","ft3.p":"Automatic climate evidence generation for CORIN appeals. Every event creates an audit trail with timestamp, pluviometry and manager decision.","ft4.tag":"Module 4","ft4.h":"Operational Impact Dashboard","ft4.p":"Period report with avoided fines, appealed amounts, protected revenue and documented ROI. Exportable for board and regulatory auditor.","sec.clients":"For whom","cli.h2":"Three client profiles.<br><em>One system that adapts to each.</em>","cli.lead":"RotaViva is not a generic climate data product. It is an operational platform designed for those with direct responsibility over fleet, regulatory compliance or mobility risk.","ac1.tag":"Profile 1","ac1.h":"SPPO Bus Operators","ac1.p":"Public transport companies under SMTR/SPPO concession, with direct exposure to disciplinary fines for non-completion during climate events.","ac1.1":"Up to 55% reduction in SMTR fines","ac1.2":"Documentary defense in CORIN appeals","ac1.3":"Rerouting decision before blockage","ac1.4":"Documented ROI per event","ac2.tag":"Profile 2","ac2.h":"Fleet Insurers","ac2.p":"Insurers with heavy vehicle portfolios in urban centers subject to climate disruptions. Predictive data for risk pricing and claims management.","ac2.1":"Climate risk score by corridor","ac2.2":"10-year event history","ac2.3":"Dynamic pricing per route","ac2.4":"Claims audit with climate evidence","ac3.tag":"Profile 3","ac3.h":"Urban Operations Centers","ac3.p":"COR equivalents, municipalities and transport secretariats responsible for managing climate crises in urban mobility corridors.","ac3.1":"Real-time risk visibility by corridor","ac3.2":"Integration with existing monitoring systems","ac3.3":"Response protocol with advance warning","ac3.4":"Data for regulatory planning","sec.proof":"Institutional validation","proof.h2":"Endorsed by those who<br><em>operate the city.</em>","proof.lead":"Technical validation by SMTR, international contract with IKI and pilots in production.","q1":"\"The proposed anomaly detection logic addresses a real gap in the current system.\"","q1.role":"Deputy Secretary · SMTR · City of Rio","q2":"\"It provides visibility into route deviations that are currently invisible to the monitoring system.\"","q2.role":"Technical Team · SMTR · City of Rio","q3":"\"Real-time fleet operational intelligence and climate disruption response — running in production.\"","q3.role":"SPPO Operator · Active pilot","pv.h2":"The organizational<br><em>intelligence OS.</em>","pv.p":"While RotaViva handles mobility operational intelligence, PowerVizion connects every department into one system that perceives, proposes and executes. Running in production at Ambev, Itaipava and Panini.","pv.cta":"Request enterprise demo →","inv.h3":"Pre-Series A · Closing T+90","inv.p":"RotaViva and PowerVizion share the same agent orchestration IP (patent pending, INPI Brazil). Two products in production, one R$2.5M raise.","inv.cta":"Request one-pager + deck →","inv.m1":"Pre-Series A target","inv.m2":"Projected ARR M36","inv.m3":"LATAM countries","sec.plans":"Commercial structure","plans.h2":"Three exposure levels.<br><em>A model that captures real risk.</em>","plans.lead":"The fee reflects the climate risk of your operation. The success fee applies only to fines effectively waived in CORIN appeals.","per.bus":"/bus/month","per.bus2":"/bus/month","per.bus3":"/bus/month","pt1.label":"Standard","pt1.sf":"+ 25% success fee on fines waived in appeals","pt1.who":"For operators on moderate climate risk routes — stable corridors, low historical blockage frequency.","pt1.f1":"Predictive climate radar","pt1.f2":"Route risk score (Tier C)","pt1.f3":"Monthly operational impact dashboard","pt1.f4":"Standard support (48h SLA)","pt1.f5":"REST API integration (48h onboarding)","pt1.note":"Designed for operators seeking to reduce regulatory exposure with controlled initial investment.","plans.rec":"Most selected","pt2.label":"High Risk","pt2.sf":"+ 25% success fee on fines waived in appeals","pt2.who":"For operators on Rio's main corridors — Tijuca, Linha Vermelha, Meier, Saens Pena.","pt2.f1":"Everything in Standard","pt2.f2":"Corridor risk heatmap (Tier B)","pt2.f3":"Automatic evidence for CORIN appeals","pt2.f4":"ROI report by period (auditable)","pt2.f5":"Priority support (24h SLA)","pt2.f6":"Setup fee: R$2,500 one-off","pt2.note":"Average payback under 3 months for operators with 15+ routes in high-risk corridors.","pt3.label":"Critical","pt3.sf":"+ 25% success fee on fines waived in appeals","pt3.who":"For operators in Rio's highest risk corridors — Rebouças, Niemeyer, Linha Amarela, Rocinha.","pt3.f1":"Everything in High Risk","pt3.f2":"Tier A coverage (critical corridors)","pt3.f3":"Legal report for fine defense","pt3.f4":"CORIN system integration","pt3.f5":"Dedicated SLA + account manager","pt3.f6":"Setup fee: R$5,000 one-off","pt3.note":"Documented annual ROI above 400% for operators on Rebouças, Niemeyer or Linha Amarela.","plans.footer":"Plans are presented after qualification. Contact our specialists for an assessment.","sec.contact":"Talk to specialists","form.h2":"Assessment of your operation within 48h.","form.p":"Our team analyzes your fleet profile, operating corridors and regulatory exposure — and delivers a personalized impact assessment before any commercial proposal.","fb.1":"Diagnostic of SMTR fine exposure by route","fb.2":"ROI estimate for your operation's profile","fb.3":"Technical API demonstration with real data","fb.4":"Custom commercial proposal, no commitment","ff.name":"Full name","ff.role":"Title","ff.company":"Company","ff.email":"Corporate email","ff.phone":"Phone / WhatsApp","ff.type":"Organization type","ff.fleet":"Fleet size (buses)","ff.challenge":"Main operational challenge","ff.submit":"Request assessment →","ff.note":"We respond within 48 business hours. No commitment until you decide to proceed.","fs.h":"✓ Request received","fs.p":"Our team will be in touch within 48 business hours."}
 };
-
-let lang = 'pt';
-function setLang(l) {
-  lang = l;
-  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
-  document.getElementById('btn-pt').classList.toggle('active', l === 'pt');
-  document.getElementById('btn-en').classList.toggle('active', l === 'en');
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.getAttribute('data-i18n');
-    if (T[l][k] !== undefined) el.innerHTML = T[l][k];
-  });
-}
+let lang='pt';
+function setLang(l){lang=l;document.documentElement.lang=l==='pt'?'pt-BR':'en';document.getElementById('btn-pt').classList.toggle('active',l==='pt');document.getElementById('btn-en').classList.toggle('active',l==='en');document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[l][k]!==undefined)el.innerHTML=T[l][k];});}
 setLang('pt');
-
-// ── PRICING REVEAL ───────────────────────────────────────────────────
-function showPricing(e) {
-  e.preventDefault();
-  const s = document.getElementById('planos');
-  s.classList.add('visible');
-  setTimeout(() => s.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-}
-
-// ── FORM SUBMIT ──────────────────────────────────────────────────────
-async function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('.form-submit');
-  btn.textContent = lang === 'pt' ? 'Enviando...' : 'Sending...';
-  btn.disabled = true;
-
-  // Build email body for mailto fallback
-  const data = new FormData(form);
-  const entries = Array.from(data.entries()).map(([k,v]) => `${k}: ${v}`).join('\n');
-
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (res.ok) {
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-    } else {
-      // Fallback: open mailto
-      window.location.href = `mailto:davi@sebrads.com?subject=${encodeURIComponent('[RotaViva] Nova solicitação de especialista')}&body=${encodeURIComponent(entries)}`;
-      btn.textContent = lang === 'pt' ? 'Solicitar avaliação →' : 'Request assessment →';
-      btn.disabled = false;
-    }
-  } catch {
-    // Fallback: open mailto
-    window.location.href = `mailto:davi@sebrads.com?subject=${encodeURIComponent('[RotaViva] Nova solicitação de especialista')}&body=${encodeURIComponent(entries)}`;
-    btn.textContent = lang === 'pt' ? 'Solicitar avaliação →' : 'Request assessment →';
-    btn.disabled = false;
-  }
-}
 </script>
 </body>
 </html>
